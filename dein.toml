@@ -30,10 +30,13 @@ repo = 'mattn/vim-lsp-settings'
 merged = '0'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
+repo = 'prabirshrestha/asyncomplete.vim'
+hook_add = '''
+  let g:asyncomplete_auto_popup = 1
+'''
 
 [[plugins]]
-repo = 'lighttiger2505/deoplete-vim-lsp'
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
