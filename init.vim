@@ -34,6 +34,6 @@ if dein#check_install()
   call dein#install()
 endif
 set background=dark
-colorscheme hybrid
+colorscheme darcula
 filetype plugin indent on
 syntax enable

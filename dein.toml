@@ -65,7 +65,7 @@ endfunction
 '''
 
 [[plugins]] 
-repo = 'w0ng/vim-hybrid'
+repo = 'doums/darcula'
 
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
