@@ -19,6 +19,8 @@ noremap <c-l> <c-w><c-l>
 nnoremap <silent> b] :bnext<CR>
 nnoremap <silent> b[ :bprevious<CR>
 
+autocmd QuickFixCmdPost *grep* cwindow
+
 if &compatible
   set nocompatible
 endif
