@@ -66,3 +66,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
+
+[[plugins]]
+repo = 'tyru/caw.vim'
