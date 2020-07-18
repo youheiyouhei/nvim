@@ -69,3 +69,6 @@ repo = 'vim-airline/vim-airline'
 
 [[plugins]]
 repo = 'tyru/caw.vim'
+
+[[plugins]]
+repo = 'mattn/vim-lexiv'
