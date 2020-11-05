@@ -74,3 +74,7 @@ build = './install --all'
 ###fzf.vim
 [[plugins]]
 repo = 'junegunn/fzf.vim'
+hook_add = '''
+  nnoremap <silent> <leader>r :Rg<CR>
+  nnoremap <silent> <leader>g :GFiles<CR>
+'''
