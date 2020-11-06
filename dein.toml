@@ -31,6 +31,9 @@ hook_add = '''
 
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
+hook_add = '''
+  nnoremap <silent> <leader>ld :LspDefinition<CR>
+'''
 
 [[plugins]] 
 repo = 'doums/darcula'
