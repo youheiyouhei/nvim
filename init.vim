@@ -42,6 +42,7 @@ if dein#check_install()
   call dein#install()
 endif
 set background=dark
+set termguicolors
 colorscheme darcula
 filetype plugin indent on
 syntax enable
