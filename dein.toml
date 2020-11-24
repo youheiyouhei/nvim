@@ -27,6 +27,7 @@ merged = '0'
 repo = 'prabirshrestha/asyncomplete.vim'
 hook_add = '''
   let g:asyncomplete_auto_popup = 1
+  let g:auto_save_in_insert_mode = 0
 '''
 
 [[plugins]]
