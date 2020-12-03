@@ -32,6 +32,7 @@ repo = 'prabirshrestha/asyncomplete-lsp.vim'
 hook_add = '''
   nnoremap <silent> <leader>ld :LspDefinition<CR>
   nnoremap <silent> <leader>li :LspImplementation<CR>
+  nnoremap <silent> <leader>lr :LspRename<CR>
 '''
 
 [[plugins]] 
