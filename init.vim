@@ -11,6 +11,7 @@ set splitright         "画面を縦分割する際に右に開く
 set clipboard=unnamed  "yank した文字列をクリップボードにコピー
 set hls                "検索した文字をハイライトする
 set ignorecase smartcase
+set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
 
 inoremap <silent> jj <ESC>
 noremap <c-h> <c-w><c-h>
@@ -26,6 +27,7 @@ autocmd QuickFixCmdPost *grep* cwindow
 autocmd FileType go setlocal noexpandtab
 autocmd FileType go setlocal tabstop=4
 autocmd FileType go setlocal shiftwidth=4
+autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 
 if &compatible
   set nocompatible
