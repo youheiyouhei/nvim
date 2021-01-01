@@ -92,3 +92,14 @@ hook_add = '''
   nmap <silent> t<C-l> :TestLast<CR>
   nmap <silent> t<C-g> :TestVisit<CR>
 '''
+
+[[plugins]]
+repo = 'SirVer/ultisnips'
+hook_add = '''
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<c-j>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+'''
+
+[[plugins]]
+repo = 'honza/vim-snippets'
