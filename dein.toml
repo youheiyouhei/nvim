@@ -104,3 +104,11 @@ hook_add = '''
 
 [[plugins]]
 repo = 'honza/vim-snippets'
+
+# go get github.com/go-delve/delve/cmd/dlv
+[[plugins]]
+repo = 'sebdah/vim-delve'
+hook_add = '''
+  nnoremap <silent> <leader>d :DlvDebug<CR>
+  nnoremap <silent> <leader>b :DlvToggleBreakpoint<CR>
+'''
