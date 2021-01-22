@@ -28,6 +28,7 @@ autocmd FileType go setlocal noexpandtab
 autocmd FileType go setlocal tabstop=4
 autocmd FileType go setlocal shiftwidth=4
 autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+autocmd FileType vue syntax sync fromstart
 
 if &compatible
   set nocompatible
