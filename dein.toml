@@ -112,3 +112,6 @@ hook_add = '''
   nnoremap <silent> <leader>d :DlvDebug<CR>
   nnoremap <silent> <leader>b :DlvToggleBreakpoint<CR>
 '''
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
