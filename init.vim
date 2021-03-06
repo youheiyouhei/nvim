@@ -18,6 +18,7 @@ noremap <c-h> <c-w><c-h>
 noremap <c-j> <c-w><c-j>
 noremap <c-k> <c-w><c-k>
 noremap <c-l> <c-w><c-l>
+nnoremap <leader>t :split<CR>:wincmd j<CR>:terminal<CR>
 
 autocmd QuickFixCmdPost *grep* cwindow
 
@@ -26,6 +27,7 @@ autocmd FileType go setlocal tabstop=4
 autocmd FileType go setlocal shiftwidth=4
 autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 autocmd FileType vue syntax sync fromstart
+autocmd TermOpen * startinsert
 
 set runtimepath^=~/dps-helloworld
 let g:denops#script#typecheck = 1
