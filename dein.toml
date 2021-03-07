@@ -1,7 +1,4 @@
 [[plugins]]
-repo = 'Townk/vim-autoclose'
-
-[[plugins]]
 repo = 'osyo-manga/vim-anzu'
 
 [[plugins]]

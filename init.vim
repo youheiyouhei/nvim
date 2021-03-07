@@ -14,6 +14,12 @@ set ignorecase smartcase
 set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
 
 inoremap <silent> jj <ESC>
+inoremap ' ''<esc>i
+inoremap " ""<esc>i
+inoremap ( ()<esc>i
+inoremap { {}<esc>i
+inoremap [ []<esc>i
+inoremap < <><esc>i
 noremap <c-h> <c-w><c-h>
 noremap <c-j> <c-w><c-j>
 noremap <c-k> <c-w><c-k>
