@@ -25,6 +25,7 @@ noremap <c-j> <c-w><c-j>
 noremap <c-k> <c-w><c-k>
 noremap <c-l> <c-w><c-l>
 nnoremap <leader>t :split<CR>:wincmd j<CR>:terminal<CR>
+tnoremap <silent> <ESC> <C-\><C-n>
 
 autocmd QuickFixCmdPost *grep* cwindow
 
