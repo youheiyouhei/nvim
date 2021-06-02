@@ -32,7 +32,6 @@ autocmd QuickFixCmdPost *grep* cwindow
 autocmd FileType go setlocal noexpandtab
 autocmd FileType go setlocal tabstop=4
 autocmd FileType go setlocal shiftwidth=4
-autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 autocmd FileType vue syntax sync fromstart
 autocmd TermOpen * startinsert
 
@@ -55,6 +54,6 @@ if dein#check_install()
 endif
 set background=dark
 set termguicolors
-colorscheme darcula
+colorscheme elly
 filetype plugin indent on
 syntax enable

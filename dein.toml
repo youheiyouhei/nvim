@@ -34,7 +34,7 @@ hook_add = '''
 '''
 
 [[plugins]] 
-repo = 'doums/darcula'
+repo = 'ulwlu/elly.vim'
 
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
