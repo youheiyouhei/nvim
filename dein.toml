@@ -115,3 +115,10 @@ repo = 'vim-denops/denops.vim'
 
 [[plugins]]
 repo = 'buoto/gotests-vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+hook_add = '''
+  let g:fern#default_hidden=1
+  nnoremap <C-n> :Fern . -reveal=% -drawer -toggle -width=40<CR>
+'''

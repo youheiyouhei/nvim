@@ -1,5 +1,0 @@
-[[plugins]]
-repo = 'scrooloose/nerdtree'
-hook_add = '''
-  map <C-n> :NERDTreeToggle<CR>
-'''
