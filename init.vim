@@ -35,9 +35,6 @@ autocmd FileType go setlocal shiftwidth=4
 autocmd FileType vue syntax sync fromstart
 autocmd TermOpen * startinsert
 
-set runtimepath^=~/dps-helloworld
-let g:denops#script#typecheck = 1
-
 if &compatible
   set nocompatible
 endif

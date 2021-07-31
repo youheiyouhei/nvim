@@ -111,9 +111,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'vim-denops/denops.vim'
-
-[[plugins]]
 repo = 'buoto/gotests-vim'
 
 [[plugins]]
