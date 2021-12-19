@@ -135,3 +135,6 @@ hook_source = '''
 
   nnoremap <silent> <leader>p :Prettier<CR>
 '''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'

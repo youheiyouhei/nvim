@@ -54,3 +54,16 @@ set termguicolors
 colorscheme elly
 filetype plugin indent on
 syntax enable
+
+"" treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  },
+  ensure_installed = 'maintained'
+}
+EOF
