@@ -144,3 +144,9 @@ repo = 'APZelos/blamer.nvim'
 hook_add = '''
   let g:blamer_date_format = '%Y/%m/%d %H:%M'
 '''
+
+[[plugins]]
+repo = 'skanehira/translate.vim'
+hook_add = '''
+  let g:translate_popup_window = 0
+'''
