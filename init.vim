@@ -35,6 +35,8 @@ autocmd FileType go setlocal shiftwidth=4
 autocmd FileType vue syntax sync fromstart
 autocmd TermOpen * startinsert
 
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+
 if &compatible
   set nocompatible
 endif
