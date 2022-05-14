@@ -66,7 +66,8 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true,
   },
-  ensure_installed = 'maintained'
+  ignore_install = { "phpdoc" },
+  ensure_installed = 'all'
 }
 EOF
 
