@@ -26,6 +26,10 @@ repo = 'tyru/open-browser.vim'
 
 [[plugins]]
 repo = "airblade/vim-gitgutter"
+hook_add = '''
+  nmap ]h <Plug>GitGutterNextHunk
+  nmap [h <Plug>GitGutterPrevHunk
+'''
 
 [[plugins]]
 repo = 'alvan/vim-closetag'
