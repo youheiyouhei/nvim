@@ -114,6 +114,9 @@ hook_add = '''
 '''
 
 [[plugins]]
+repo = 'rhysd/conflict-marker.vim'
+
+[[plugins]]
 repo = 'neoclide/coc.nvim'
 rev = 'release'
 on_i = 1
