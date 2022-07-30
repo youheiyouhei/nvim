@@ -168,3 +168,6 @@ hook_add = '''
   " Fix autofix problem of current line
   nmap <leader>qf  <Plug>(coc-fix-current)
 '''
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
