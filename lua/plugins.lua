@@ -21,6 +21,10 @@ require("packer").startup(function(use)
 	use("Pocco81/auto-save.nvim")
 	use("folke/tokyonight.nvim")
 	use("lewis6991/gitsigns.nvim")
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+	})
 end)
 
 vim.cmd([[colorscheme tokyonight]])

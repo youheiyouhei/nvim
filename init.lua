@@ -110,5 +110,13 @@ require("lualine").setup()
 require("auto-save").setup({})
 require("nvim-autopairs").setup({})
 require("gitsigns").setup()
+require("nvim-treesitter.configs").setup({
+	ensure_installed = { "go", "lua", "gomod", "markdown", "sql", " typescript", "vue", "json", "javascript" },
+	sync_install = false,
+	auto_install = true,
+	highlight = {
+		enable = true,
+	},
+})
 
 vim.opt.completeopt = "menu,menuone,noselect"
