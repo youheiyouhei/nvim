@@ -6,7 +6,6 @@ require("packer").startup(function(use)
 	use("kyazdani42/nvim-web-devicons")
 	use("terrortylor/nvim-comment")
 	use("nvim-lualine/lualine.nvim")
-	use("lambdalisue/fern.vim")
 	use("neovim/nvim-lspconfig")
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-path")
@@ -21,6 +20,8 @@ require("packer").startup(function(use)
 	use("Pocco81/auto-save.nvim")
 	use("folke/tokyonight.nvim")
 	use("lewis6991/gitsigns.nvim")
+	use("tamago324/lir.nvim")
+	use("nvim-lua/plenary.nvim")
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
