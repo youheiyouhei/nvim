@@ -105,11 +105,6 @@ local no_errors, error_msg = pcall(function()
 			path = "/Users/yohei/.local/share/nvim/site/pack/packer/start/cmp-snippy",
 			url = "https://github.com/dcampos/cmp-snippy.git",
 		},
-		["fern.vim"] = {
-			loaded = true,
-			path = "/Users/yohei/.local/share/nvim/site/pack/packer/start/fern.vim",
-			url = "https://github.com/lambdalisue/fern.vim.git",
-		},
 		["fzf-lua"] = {
 			loaded = true,
 			path = "/Users/yohei/.local/share/nvim/site/pack/packer/start/fzf-lua",
@@ -139,6 +134,11 @@ local no_errors, error_msg = pcall(function()
 			loaded = true,
 			path = "/Users/yohei/.local/share/nvim/site/pack/packer/start/mason.nvim",
 			url = "https://github.com/williamboman/mason.nvim.git",
+		},
+		["null-ls.nvim"] = {
+			loaded = true,
+			path = "/Users/yohei/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+			url = "https://github.com/jose-elias-alvarez/null-ls.nvim.git",
 		},
 		["nvim-autopairs"] = {
 			loaded = true,
@@ -184,6 +184,11 @@ local no_errors, error_msg = pcall(function()
 			loaded = true,
 			path = "/Users/yohei/.local/share/nvim/site/pack/packer/start/plenary.nvim",
 			url = "https://github.com/nvim-lua/plenary.nvim.git",
+		},
+		["prettier.nvim"] = {
+			loaded = true,
+			path = "/Users/yohei/.local/share/nvim/site/pack/packer/start/prettier.nvim",
+			url = "https://github.com/MunifTanjim/prettier.nvim.git",
 		},
 		["tokyonight.nvim"] = {
 			loaded = true,
