@@ -2,13 +2,16 @@ require("plugins")
 
 vim.g.mapleader = " "
 vim.opt.clipboard = "unnamedplus"
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.wrap = false
-vim.o.signcolumn = "yes"
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.number = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.wrap = false
+vim.opt.signcolumn = "yes"
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.number = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.expandtab = true
 vim.api.nvim_exec("highlight SignColumn ctermbg=black", false)
 
 vim.api.nvim_set_keymap("i", "jj", "<ESC>", { noremap = true, silent = true })
@@ -188,6 +191,7 @@ require("lir").setup({
 		vim.api.nvim_echo({ { vim.fn.expand("%:p"), "Normal" } }, false, {})
 	end,
 })
+vim.api.nvim_set_keymap("n", "<C-n>", '<cmd>lua require("lir.float").toggle()<cr>', { noremap = true })
 
 -- custom folder icon
 require("nvim-web-devicons").set_icon({
@@ -197,6 +201,41 @@ require("nvim-web-devicons").set_icon({
 		name = "LirFolderNode",
 	},
 })
-vim.api.nvim_set_keymap("n", "<C-n>", '<cmd>lua require("lir.float").toggle()<cr>', { noremap = true })
+
+local null_ls = require("null-ls")
+
+null_ls.setup({
+	on_attach = function(client, bufnr)
+		if client.server_capabilities.documentFormattingProvider then
+			vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+
+			-- format on save
+			vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+		end
+
+		if client.server_capabilities.documentRangeFormattingProvider then
+			vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+		end
+	end,
+})
+local prettier = require("prettier")
+
+prettier.setup({
+	bin = "prettierd", -- or `prettierd`
+	filetypes = {
+		"css",
+		"graphql",
+		"html",
+		"javascript",
+		"javascriptreact",
+		"json",
+		"less",
+		"markdown",
+		"scss",
+		"typescript",
+		"typescriptreact",
+		"yaml",
+	},
+})
 
 vim.opt.completeopt = "menu,menuone,noselect"
