@@ -1,24 +1,6 @@
 require("plugins")
-
-vim.g.mapleader = " "
-vim.opt.clipboard = "unnamedplus"
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.wrap = false
-vim.opt.signcolumn = "yes"
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.number = true
-vim.opt.autoindent = true
-vim.opt.smartindent = true
-vim.opt.expandtab = true
-vim.api.nvim_exec("highlight SignColumn ctermbg=black", false)
-
-vim.api.nvim_set_keymap("i", "jj", "<ESC>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<c-h>", "<c-w><c-h>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<c-k>", "<c-w><c-k>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<c-j>", "<c-w><c-j>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<c-l>", "<c-w><c-l>", { noremap = true, silent = true })
+require("base")
+require("maps")
 
 vim.api.nvim_set_keymap(
   "n",
