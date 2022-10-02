@@ -27,7 +27,26 @@ require("packer").startup(function(use)
     run = ":TSUpdate",
   })
   use("jose-elias-alvarez/null-ls.nvim")
+  use("MunifTanjim/nui.nvim")
   use("MunifTanjim/prettier.nvim")
+  use({
+    "kosayoda/nvim-lightbulb",
+    config = function()
+      require("nvim-lightbulb").setup({
+        autocmd = { enabled = true },
+        -- 行番号ではなく行末に出す
+        sign = { enabled = false },
+        virtual_text = { enabled = true },
+      })
+    end,
+  })
+  use({
+    "aznhe21/actions-preview.nvim",
+    config = function()
+      -- vim.keymap.set({ "v", "n" }, "gf", require("actions-preview").code_actions)
+      vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions)
+    end,
+  })
 end)
 
 vim.cmd([[colorscheme tokyonight]])
