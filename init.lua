@@ -220,4 +220,8 @@ prettier.setup({
   },
 })
 
+vim.cmd("autocmd FileType go setlocal noexpandtab")
+vim.cmd("autocmd FileType go setlocal tabstop=4")
+vim.cmd("autocmd FileType go setlocal shiftwidth=4")
+
 vim.opt.completeopt = "menu,menuone,noselect"
