@@ -29,6 +29,7 @@ require("packer").startup(function(use)
   use("jose-elias-alvarez/null-ls.nvim")
   use("MunifTanjim/nui.nvim")
   use("MunifTanjim/prettier.nvim")
+  use("github/copilot.vim")
   use({
     "kosayoda/nvim-lightbulb",
     config = function()
