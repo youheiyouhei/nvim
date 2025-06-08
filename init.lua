@@ -32,23 +32,16 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
   -- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-  vim.keymap.set("n", "<leader>f", vim.lsp.buf.formatting, bufopts)
+  vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
 end
 
-require("lspconfig")["tsserver"].setup({
+require("lspconfig")["ts_ls"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
 
 require("mason").setup()
 require("mason-lspconfig").setup()
-require("mason-lspconfig").setup_handlers({
-  function(server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup({
-      on_attach = on_attach,
-    })
-  end,
-})
 
 local cmp = require("cmp")
 cmp.setup({
@@ -191,14 +184,14 @@ local null_ls = require("null-ls")
 null_ls.setup({
   on_attach = function(client, bufnr)
     if client.server_capabilities.documentFormattingProvider then
-      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format()<CR>")
 
       -- format on save
-      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format()")
     end
 
     if client.server_capabilities.documentRangeFormattingProvider then
-      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format({range={}})<CR>")
     end
   end,
 })
