@@ -181,6 +181,12 @@ vim.opt.completeopt = "menu,menuone,noselect"
 
 -- claude-code.nvim の設定
 require("claude-code").setup({
+  -- ターミナルウィンドウの設定
+  window = {
+    split_ratio = 0.5,      -- ターミナルウィンドウのサイズ（画面の60%）
+    position = "botright",  -- ウィンドウの位置
+    enter_insert = true,    -- Claude Codeを開いた時にinsertモードに入る
+  },
   keymaps = {
     toggle = {
       normal = "<leader>cc",  -- <leader>ccでClaude Codeをトグル
