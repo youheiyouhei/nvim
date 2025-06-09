@@ -49,15 +49,6 @@ stylua lua/                     # Luaファイルのフォーマット
 - **AI支援**: copilot.vim
 - **ファイラー**: lir.nvim
 
-## 言語設定
-
-### 対応言語
-- Go (包括的なスニペット、LSP設定)
-- TypeScript/JavaScript (Prettier、ESLint統合)
-- Lua (stylua設定、LSP)
-- その他（Python、Rust等のLSP設定）
-
-
 ## 重要な設定
 
 - リーダーキー: スペースキー
