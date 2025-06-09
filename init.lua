@@ -180,4 +180,11 @@ vim.cmd("autocmd FileType go setlocal shiftwidth=4")
 vim.opt.completeopt = "menu,menuone,noselect"
 
 -- claude-code.nvim の設定
-require("claude-code").setup({})
+require("claude-code").setup({
+  keymaps = {
+    toggle = {
+      normal = "<leader>cc",  -- <leader>ccでClaude Codeをトグル
+      terminal = "<C-,>",     -- ターミナルモードでのトグルキー
+    },
+  }
+})
