@@ -57,9 +57,6 @@ stylua lua/                     # Luaファイルのフォーマット
 - Lua (stylua設定、LSP)
 - その他（Python、Rust等のLSP設定）
 
-### スニペット
-- `snippets/go.snippets` - Go言語用の詳細なスニペット定義
-- `snippets/lua.snippets` - Lua基本スニペット
 
 ## 重要な設定
 
