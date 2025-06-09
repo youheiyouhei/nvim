@@ -73,14 +73,6 @@ cmp.setup.cmdline(":", {
   },
 })
 
-require("snippy").setup({
-  mappings = {
-    is = {
-      ["<Tab>"] = "expand_or_advance",
-      ["<S-Tab>"] = "previous",
-    },
-  },
-})
 
 require("nvim_comment").setup()
 require("lualine").setup()
