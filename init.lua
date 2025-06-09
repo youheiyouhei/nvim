@@ -195,25 +195,6 @@ null_ls.setup({
     end
   end,
 })
-local prettier = require("prettier")
-
-prettier.setup({
-  bin = "prettierd", -- or `prettierd`
-  filetypes = {
-    "css",
-    "graphql",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "json",
-    "less",
-    "markdown",
-    "scss",
-    "typescript",
-    "typescriptreact",
-    "yaml",
-  },
-})
 
 vim.cmd("autocmd FileType go setlocal noexpandtab")
 vim.cmd("autocmd FileType go setlocal tabstop=4")
