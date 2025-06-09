@@ -45,6 +45,7 @@ require("packer").startup(function(use)
       vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions)
     end,
   })
+  use("greggh/claude-code.nvim")
 end)
 
 vim.cmd([[colorscheme tokyonight]])

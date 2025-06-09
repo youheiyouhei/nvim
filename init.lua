@@ -129,21 +129,6 @@ require("lir").setup({
       highlight_dirname = false,
     },
 
-    -- -- You can define a function that returns a table to be passed as the third
-    -- -- argument of nvim_open_win().
-    -- win_opts = function()
-    --   local width = math.floor(vim.o.columns * 0.8)
-    --   local height = math.floor(vim.o.lines * 0.8)
-    --   return {
-    --     border = {
-    --       "+", "─", "+", "│", "+", "─", "+", "│",
-    --     },
-    --     width = width,
-    --     height = height,
-    --     row = 1,
-    --     col = math.floor((vim.o.columns - width) / 2),
-    --   }
-    -- end,
   },
   hide_cursor = true,
   on_init = function()
@@ -193,3 +178,6 @@ vim.cmd("autocmd FileType go setlocal tabstop=4")
 vim.cmd("autocmd FileType go setlocal shiftwidth=4")
 
 vim.opt.completeopt = "menu,menuone,noselect"
+
+-- claude-code.nvim の設定
+require("claude-code").setup({})
