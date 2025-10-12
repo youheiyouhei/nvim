@@ -35,10 +35,15 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
 end
 
-require("lspconfig")["ts_ls"].setup({
+-- 新しい vim.lsp.config API を使用（Neovim 0.11+）
+vim.lsp.config.ts_ls = {
+  cmd = { 'typescript-language-server', '--stdio' },
+  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+  root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json' },
   on_attach = on_attach,
-  flags = lsp_flags,
-})
+}
+
+vim.lsp.enable('ts_ls')
 
 require("mason").setup()
 require("mason-lspconfig").setup()
