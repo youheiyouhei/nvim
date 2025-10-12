@@ -184,18 +184,31 @@ vim.cmd("autocmd FileType go setlocal shiftwidth=4")
 
 vim.opt.completeopt = "menu,menuone,noselect"
 
--- claude-code.nvim の設定
-require("claude-code").setup({
-  -- ターミナルウィンドウの設定
-  window = {
-    split_ratio = 0.5,      -- ターミナルウィンドウのサイズ（画面の60%）
-    position = "botright",  -- ウィンドウの位置
-    enter_insert = true,    -- Claude Codeを開いた時にinsertモードに入る
-  },
-  keymaps = {
-    toggle = {
-      normal = "<leader>cc",  -- <leader>ccでClaude Codeをトグル
-      terminal = "<C-,>",     -- ターミナルモードでのトグルキー
-    },
-  }
-})
+-- Claude Code
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>cc",
+  "<cmd>ClaudeCode<CR>",
+  { noremap = true, silent = true, desc = "Toggle Claude Code" }
+)
+
+vim.api.nvim_set_keymap(
+  "v",
+  "<leader>cs",
+  "<cmd>ClaudeCodeSend<CR>",
+  { noremap = true, silent = true, desc = "Send to Claude" }
+)
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>ca",
+  "<cmd>ClaudeCodeDiffAccept<CR>",
+  { noremap = true, silent = true, desc = "Accept Claude diff" }
+)
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>cd",
+  "<cmd>ClaudeCodeDiffDeny<CR>",
+  { noremap = true, silent = true, desc = "Deny Claude diff" }
+)

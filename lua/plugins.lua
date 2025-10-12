@@ -45,7 +45,14 @@ require("packer").startup(function(use)
       vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions)
     end,
   })
-  use("greggh/claude-code.nvim")
+  use("folke/snacks.nvim")
+  use({
+    "coder/claudecode.nvim",
+    requires = { "folke/snacks.nvim" },
+    config = function()
+      require("claudecode").setup({})
+    end,
+  })
 end)
 
 vim.cmd([[colorscheme tokyonight]])
