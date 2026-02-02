@@ -17,6 +17,8 @@ vim.api.nvim_create_autocmd("TermOpen", {
   command = "startinsert"
 })
 
+-- ターミナルモードからノーマルモードに戻る
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>")
+
 -- Claude Code
 vim.keymap.set("n", "<leader>cc", "<cmd>ClaudeCode<cr>")
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n><cmd>ClaudeCode<cr>")
