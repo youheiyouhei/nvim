@@ -201,14 +201,14 @@ vim.api.nvim_set_keymap(
 
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>ca",
+  "<leader>cca",
   "<cmd>ClaudeCodeDiffAccept<CR>",
   { noremap = true, silent = true, desc = "Accept Claude diff" }
 )
 
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>cd",
+  "<leader>ccd",
   "<cmd>ClaudeCodeDiffDeny<CR>",
   { noremap = true, silent = true, desc = "Deny Claude diff" }
 )
