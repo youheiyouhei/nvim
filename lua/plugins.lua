@@ -55,4 +55,4 @@ require("packer").startup(function(use)
   })
 end)
 
-vim.cmd([[colorscheme tokyonight]])
+pcall(vim.cmd, [[colorscheme tokyonight]])

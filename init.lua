@@ -45,138 +45,143 @@ vim.lsp.config.ts_ls = {
 
 vim.lsp.enable('ts_ls')
 
-require("mason").setup()
-require("mason-lspconfig").setup()
+-- プラグイン設定（初回はプラグイン未インストールのためpcallで保護）
+local ok, _ = pcall(function()
+  require("mason").setup()
+  require("mason-lspconfig").setup()
 
-local cmp = require("cmp")
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      require("snippy").expand_snippet(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
-  }),
-  sources = cmp.config.sources({
-    { name = "nvim_lsp" },
-    { name = "snippy" },
-  }, {
-    { name = "buffer" },
-  }),
-})
-
-cmp.setup.cmdline(":", {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = "path" },
-    { name = "cmdline" },
-  },
-})
-
-
-require("nvim_comment").setup()
-require("lualine").setup()
-require("auto-save").setup({})
-require("nvim-autopairs").setup({})
-require("gitsigns").setup()
-require("nvim-treesitter.configs").setup({
-  ensure_installed = { "go", "lua", "gomod", "markdown", "sql", " typescript", "vue", "json", "javascript" },
-  sync_install = false,
-  auto_install = true,
-  highlight = {
-    enable = true,
-  },
-})
-
-local actions = require("lir.actions")
-local mark_actions = require("lir.mark.actions")
-local clipboard_actions = require("lir.clipboard.actions")
-
-require("lir").setup({
-  show_hidden_files = false,
-  devicons = {
-    enable = false,
-  },
-  mappings = {
-    ["l"] = actions.edit,
-    ["<C-s>"] = actions.split,
-    ["<C-v>"] = actions.vsplit,
-    ["<C-t>"] = actions.tabedit,
-
-    ["h"] = actions.up,
-    ["q"] = actions.quit,
-
-    ["K"] = actions.mkdir,
-    ["N"] = actions.newfile,
-    ["R"] = actions.rename,
-    ["@"] = actions.cd,
-    ["Y"] = actions.yank_path,
-    ["."] = actions.toggle_show_hidden,
-    ["D"] = actions.delete,
-
-    ["J"] = function()
-      mark_actions.toggle_mark()
-      vim.cmd("normal! j")
-    end,
-    ["C"] = clipboard_actions.copy,
-    ["X"] = clipboard_actions.cut,
-    ["P"] = clipboard_actions.paste,
-  },
-  float = {
-    winblend = 0,
-    curdir_window = {
-      enable = false,
-      highlight_dirname = false,
+  local cmp = require("cmp")
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        require("snippy").expand_snippet(args.body)
+      end,
     },
+    mapping = cmp.mapping.preset.insert({
+      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-f>"] = cmp.mapping.scroll_docs(4),
+      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-e>"] = cmp.mapping.close(),
+      ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    }),
+    sources = cmp.config.sources({
+      { name = "nvim_lsp" },
+      { name = "snippy" },
+    }, {
+      { name = "buffer" },
+    }),
+  })
 
-  },
-  hide_cursor = true,
-  on_init = function()
-    -- use visual mode
-    vim.api.nvim_buf_set_keymap(
-      0,
-      "x",
-      "J",
-      ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
-      { noremap = true, silent = true }
-    )
+  cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = "path" },
+      { name = "cmdline" },
+    },
+  })
 
-    -- echo cwd
-    vim.api.nvim_echo({ { vim.fn.expand("%:p"), "Normal" } }, false, {})
-  end,
-})
-vim.api.nvim_set_keymap("n", "<C-n>", '<cmd>lua require("lir.float").toggle()<cr>', { noremap = true })
+  require("nvim_comment").setup()
+  require("lualine").setup()
+  require("auto-save").setup({})
+  require("nvim-autopairs").setup({})
+  require("gitsigns").setup()
+  -- nvim-treesitter (new API)
+  require("nvim-treesitter").setup({
+    ensure_installed = { "go", "lua", "gomod", "markdown", "sql", "typescript", "vue", "json", "javascript" },
+    sync_install = false,
+    auto_install = true,
+  })
+  vim.treesitter.start = vim.treesitter.start or function() end
 
--- custom folder icon
-require("nvim-web-devicons").set_icon({
-  lir_folder_icon = {
-    icon = "",
-    color = "#7ebae4",
-    name = "LirFolderNode",
-  },
-})
+  local actions = require("lir.actions")
+  local mark_actions = require("lir.mark.actions")
+  local clipboard_actions = require("lir.clipboard.actions")
 
-local null_ls = require("null-ls")
+  require("lir").setup({
+    show_hidden_files = false,
+    devicons = {
+      enable = false,
+    },
+    mappings = {
+      ["l"] = actions.edit,
+      ["<C-s>"] = actions.split,
+      ["<C-v>"] = actions.vsplit,
+      ["<C-t>"] = actions.tabedit,
 
-null_ls.setup({
-  on_attach = function(client, bufnr)
-    if client.server_capabilities.documentFormattingProvider then
-      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format()<CR>")
+      ["h"] = actions.up,
+      ["q"] = actions.quit,
 
-      -- format on save
-      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format()")
-    end
+      ["K"] = actions.mkdir,
+      ["N"] = actions.newfile,
+      ["R"] = actions.rename,
+      ["@"] = actions.cd,
+      ["Y"] = actions.yank_path,
+      ["."] = actions.toggle_show_hidden,
+      ["D"] = actions.delete,
 
-    if client.server_capabilities.documentRangeFormattingProvider then
-      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format({range={}})<CR>")
-    end
-  end,
-})
+      ["J"] = function()
+        mark_actions.toggle_mark()
+        vim.cmd("normal! j")
+      end,
+      ["C"] = clipboard_actions.copy,
+      ["X"] = clipboard_actions.cut,
+      ["P"] = clipboard_actions.paste,
+    },
+    float = {
+      winblend = 0,
+      curdir_window = {
+        enable = false,
+        highlight_dirname = false,
+      },
+
+    },
+    hide_cursor = true,
+    on_init = function()
+      -- use visual mode
+      vim.api.nvim_buf_set_keymap(
+        0,
+        "x",
+        "J",
+        ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
+        { noremap = true, silent = true }
+      )
+
+      -- echo cwd
+      vim.api.nvim_echo({ { vim.fn.expand("%:p"), "Normal" } }, false, {})
+    end,
+  })
+  vim.api.nvim_set_keymap("n", "<C-n>", '<cmd>lua require("lir.float").toggle()<cr>', { noremap = true })
+
+  -- custom folder icon
+  require("nvim-web-devicons").set_icon({
+    lir_folder_icon = {
+      icon = "",
+      color = "#7ebae4",
+      name = "LirFolderNode",
+    },
+  })
+
+  local null_ls = require("null-ls")
+
+  null_ls.setup({
+    on_attach = function(client, bufnr)
+      if client.server_capabilities.documentFormattingProvider then
+        vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format()<CR>")
+
+        -- format on save
+        vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format()")
+      end
+
+      if client.server_capabilities.documentRangeFormattingProvider then
+        vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format({range={}})<CR>")
+      end
+    end,
+  })
+end)
+
+if not ok then
+  vim.notify("Some plugins are not yet installed. Run :PackerSync", vim.log.levels.WARN)
+end
 
 vim.cmd("autocmd FileType go setlocal noexpandtab")
 vim.cmd("autocmd FileType go setlocal tabstop=4")
