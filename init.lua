@@ -2,19 +2,13 @@ require("plugins")
 require("base")
 require("maps")
 
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>g",
-  "<cmd>lua require('fzf-lua').git_files()<CR>",
-  { noremap = true, silent = true }
-)
+vim.keymap.set("n", "<leader>g", function()
+  require("fzf-lua").git_files()
+end)
 
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>r",
-  "<cmd>lua require('fzf-lua').grep_project()<CR>",
-  { noremap = true, silent = true }
-)
+vim.keymap.set("n", "<leader>r", function()
+  require("fzf-lua").grep_project()
+end)
 
 -- LSP設定（vim.lsp.config API）
 vim.lsp.config.ts_ls = {
@@ -68,126 +62,15 @@ vim.keymap.set("i", "<CR>", function()
   return "<CR>"
 end, { expr = true })
 
--- プラグイン設定（初回はプラグイン未インストールのためpcallで保護）
-local ok, _ = pcall(function()
-  require("mason").setup()
-
-  require("lualine").setup()
-  require("auto-save").setup({})
-  require("nvim-autopairs").setup({})
-  require("gitsigns").setup()
-  -- nvim-treesitter (new API)
-  require("nvim-treesitter").setup({
-    ensure_installed = { "go", "lua", "gomod", "markdown", "sql", "typescript", "vue", "json", "javascript" },
-    sync_install = false,
-    auto_install = true,
-  })
-  vim.treesitter.start = vim.treesitter.start or function() end
-
-  local actions = require("lir.actions")
-  local mark_actions = require("lir.mark.actions")
-  local clipboard_actions = require("lir.clipboard.actions")
-
-  require("lir").setup({
-    show_hidden_files = false,
-    devicons = {
-      enable = false,
-    },
-    mappings = {
-      ["l"] = actions.edit,
-      ["<C-s>"] = actions.split,
-      ["<C-v>"] = actions.vsplit,
-      ["<C-t>"] = actions.tabedit,
-
-      ["h"] = actions.up,
-      ["q"] = actions.quit,
-
-      ["K"] = actions.mkdir,
-      ["N"] = actions.newfile,
-      ["R"] = actions.rename,
-      ["@"] = actions.cd,
-      ["Y"] = actions.yank_path,
-      ["."] = actions.toggle_show_hidden,
-      ["D"] = actions.delete,
-
-      ["J"] = function()
-        mark_actions.toggle_mark()
-        vim.cmd("normal! j")
-      end,
-      ["C"] = clipboard_actions.copy,
-      ["X"] = clipboard_actions.cut,
-      ["P"] = clipboard_actions.paste,
-    },
-    float = {
-      winblend = 0,
-      curdir_window = {
-        enable = false,
-        highlight_dirname = false,
-      },
-
-    },
-    hide_cursor = true,
-    on_init = function()
-      -- use visual mode
-      vim.api.nvim_buf_set_keymap(
-        0,
-        "x",
-        "J",
-        ':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
-        { noremap = true, silent = true }
-      )
-
-      -- echo cwd
-      vim.api.nvim_echo({ { vim.fn.expand("%:p"), "Normal" } }, false, {})
-    end,
-  })
-  vim.api.nvim_set_keymap("n", "<C-n>", '<cmd>lua require("lir.float").toggle()<cr>', { noremap = true })
-
-  -- custom folder icon
-  require("nvim-web-devicons").set_icon({
-    lir_folder_icon = {
-      icon = "",
-      color = "#7ebae4",
-      name = "LirFolderNode",
-    },
-  })
-end)
-
-if not ok then
-  vim.notify("Some plugins are not yet installed. Run :PackerSync", vim.log.levels.WARN)
-end
-
-vim.cmd("autocmd FileType go setlocal noexpandtab")
-vim.cmd("autocmd FileType go setlocal tabstop=4")
-vim.cmd("autocmd FileType go setlocal shiftwidth=4")
+-- 自動保存
+vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
+  command = "silent! wa",
+})
 
 vim.opt.completeopt = "menu,menuone,noselect"
 
 -- Claude Code
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>cc",
-  "<cmd>ClaudeCode<CR>",
-  { noremap = true, silent = true, desc = "Toggle Claude Code" }
-)
-
-vim.api.nvim_set_keymap(
-  "v",
-  "<leader>cs",
-  "<cmd>ClaudeCodeSend<CR>",
-  { noremap = true, silent = true, desc = "Send to Claude" }
-)
-
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>cca",
-  "<cmd>ClaudeCodeDiffAccept<CR>",
-  { noremap = true, silent = true, desc = "Accept Claude diff" }
-)
-
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>ccd",
-  "<cmd>ClaudeCodeDiffDeny<CR>",
-  { noremap = true, silent = true, desc = "Deny Claude diff" }
-)
+vim.keymap.set("n", "<leader>cc", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
+vim.keymap.set("v", "<leader>cs", "<cmd>ClaudeCodeSend<CR>", { desc = "Send to Claude" })
+vim.keymap.set("n", "<leader>cca", "<cmd>ClaudeCodeDiffAccept<CR>", { desc = "Accept Claude diff" })
+vim.keymap.set("n", "<leader>ccd", "<cmd>ClaudeCodeDiffDeny<CR>", { desc = "Deny Claude diff" })

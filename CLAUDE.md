@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Neovim設定の概要
 
-この設定は、Packer.nvimを使用したモダンなNeovim設定です。LSP、補完、フォーマット機能が統合されており、特にGo、TypeScript、Luaでの開発に最適化されています。
+この設定は、lazy.nvimを使用したモダンなNeovim 0.12設定です。ビルトインLSP、補完、フォーマット機能を活用しており、特にGo、TypeScript、Luaでの開発に最適化されています。
 
 ## 主要なコマンド
 
 ### プラグイン管理
 ```bash
-nvim +PackerSync +qall          # プラグインの同期とコンパイル
-nvim +PackerInstall +qall       # 新しいプラグインのインストール
-nvim +PackerCompile +qall       # 設定のコンパイル
+nvim "+Lazy sync" +qall         # プラグインの同期
+nvim "+Lazy install" +qall      # 新しいプラグインのインストール
+nvim "+Lazy update" +qall       # プラグインの更新
 ```
 
 ### LSPとツール管理
@@ -30,8 +30,8 @@ stylua lua/                     # Luaファイルのフォーマット
 
 ### ファイル構造
 - `init.lua` - メインの設定ファイル、各モジュールを順番に読み込み
-- `lua/plugins.lua` - Packer.nvimによるプラグイン定義
-- `lua/base.lua` - Neovimの基本設定（オプション、カラースキーム）
+- `lua/plugins.lua` - lazy.nvimによるプラグイン定義と設定
+- `lua/base.lua` - Neovimの基本設定（オプション）
 - `lua/maps.lua` - キーマッピング設定
 
 ### 設定の読み込み順序
@@ -41,17 +41,16 @@ stylua lua/                     # Luaファイルのフォーマット
 4. LSP、補完、フォーマッターの設定
 
 ### 主要プラグイン
-- **プラグインマネージャー**: Packer.nvim
+- **プラグインマネージャー**: lazy.nvim
 - **ファイル検索**: fzf-lua
-- **LSP**: nvim-lspconfig + Mason
-- **補完**: nvim-cmp ecosystem
-- **フォーマット**: prettier.nvim, null-ls.nvim
-- **AI支援**: copilot.vim
+- **LSP**: ビルトイン (vim.lsp.config) + Mason
+- **補完**: ビルトイン (vim.lsp.completion)
+- **AI支援**: copilot.vim, claudecode.nvim
 - **ファイラー**: lir.nvim
 
 ## 重要な設定
 
 - リーダーキー: スペースキー
-- 自動保存: 有効（auto-save.nvim）
-- 自動フォーマット: ファイル保存時に実行
+- 自動保存: 有効（autocmd: FocusLost/BufLeave）
+- 自動フォーマット: ファイル保存時に実行（LSP）
 - インデント: 2スペース（stylua.toml設定）

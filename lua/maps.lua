@@ -14,11 +14,8 @@ vim.api.nvim_set_keymap("n", "<leader>t", ":split | terminal<CR>", { noremap = t
 -- ターミナルを開いた時に自動でインサートモードに入る
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
-  command = "startinsert"
+  command = "startinsert",
 })
 
 -- ターミナルモードからノーマルモードに戻る
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>")
-
--- Claude Code
-vim.keymap.set("n", "<leader>cc", "<cmd>ClaudeCode<cr>")

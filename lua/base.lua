@@ -7,6 +7,4 @@ vim.opt.signcolumn = "yes"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.number = true
-vim.opt.autoindent = true
-vim.opt.smartindent = true
 vim.opt.expandtab = true
