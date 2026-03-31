@@ -32,12 +32,6 @@ require("lazy").setup({
     end,
   },
   {
-    "nvim-lualine/lualine.nvim",
-    config = function()
-      require("lualine").setup()
-    end,
-  },
-  {
     "windwp/nvim-autopairs",
     config = function()
       require("nvim-autopairs").setup({})
@@ -131,12 +125,6 @@ require("lazy").setup({
         sign = { enabled = false },
         virtual_text = { enabled = true },
       })
-    end,
-  },
-  {
-    "aznhe21/actions-preview.nvim",
-    config = function()
-      vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions)
     end,
   },
   "folke/snacks.nvim",
