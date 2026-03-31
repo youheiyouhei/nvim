@@ -4,15 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Neovim設定の概要
 
-この設定は、lazy.nvimを使用したモダンなNeovim 0.12設定です。ビルトインLSP、補完、フォーマット機能を活用しており、特にGo、TypeScript、Luaでの開発に最適化されています。
+この設定は、vim.pack（ビルトインプラグインマネージャー）を使用したモダンなNeovim 0.12設定です。ビルトインLSP、補完、フォーマット機能を活用しており、特にGo、TypeScript、Luaでの開発に最適化されています。
 
 ## 主要なコマンド
 
 ### プラグイン管理
-```bash
-nvim "+Lazy sync" +qall         # プラグインの同期
-nvim "+Lazy install" +qall      # 新しいプラグインのインストール
-nvim "+Lazy update" +qall       # プラグインの更新
+```lua
+-- Neovim起動時に未インストールのプラグインがあれば自動でプロンプト表示
+-- :lua vim.pack.update()  でプラグインの更新
 ```
 
 ### LSPとツール管理
@@ -30,7 +29,7 @@ stylua lua/                     # Luaファイルのフォーマット
 
 ### ファイル構造
 - `init.lua` - メインの設定ファイル、各モジュールを順番に読み込み
-- `lua/plugins.lua` - lazy.nvimによるプラグイン定義と設定
+- `lua/plugins.lua` - vim.packによるプラグイン定義と設定
 - `lua/base.lua` - Neovimの基本設定（オプション）
 - `lua/maps.lua` - キーマッピング設定
 
@@ -41,7 +40,7 @@ stylua lua/                     # Luaファイルのフォーマット
 4. LSP、補完、フォーマッターの設定
 
 ### 主要プラグイン
-- **プラグインマネージャー**: lazy.nvim
+- **プラグインマネージャー**: vim.pack（ビルトイン）
 - **ファイル検索**: fzf-lua
 - **LSP**: ビルトイン (vim.lsp.config) + Mason
 - **補完**: ビルトイン (vim.lsp.completion)
