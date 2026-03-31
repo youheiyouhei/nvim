@@ -16,71 +16,62 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true }
 )
 
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-  vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-  -- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-  vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
-end
-
--- 新しい vim.lsp.config API を使用（Neovim 0.11+）
+-- LSP設定（vim.lsp.config API）
 vim.lsp.config.ts_ls = {
-  cmd = { 'typescript-language-server', '--stdio' },
-  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-  root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json' },
-  on_attach = on_attach,
+  cmd = { "typescript-language-server", "--stdio" },
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+  root_markers = { "package.json", "tsconfig.json", "jsconfig.json" },
 }
 
-vim.lsp.enable('ts_ls')
+vim.lsp.enable("ts_ls")
+
+-- LspAttach: 補完・フォーマット・キーマッピング
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    -- ビルトイン補完を有効化
+    if client:supports_method("textDocument/completion") then
+      vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+    end
+
+    -- フォーマット on save
+    if client:supports_method("textDocument/formatting") then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end,
+      })
+    end
+
+    -- キーマッピング
+    local opts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
+  end,
+})
+
+-- 補完メニューでEnterで確定
+vim.keymap.set("i", "<CR>", function()
+  if vim.fn.pumvisible() == 1 then
+    return "<C-y>"
+  end
+  return "<CR>"
+end, { expr = true })
 
 -- プラグイン設定（初回はプラグイン未インストールのためpcallで保護）
 local ok, _ = pcall(function()
   require("mason").setup()
-  require("mason-lspconfig").setup()
 
-  local cmp = require("cmp")
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        require("snippy").expand_snippet(args.body)
-      end,
-    },
-    mapping = cmp.mapping.preset.insert({
-      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.close(),
-      ["<CR>"] = cmp.mapping.confirm({ select = true }),
-    }),
-    sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "snippy" },
-    }, {
-      { name = "buffer" },
-    }),
-  })
-
-  cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = "path" },
-      { name = "cmdline" },
-    },
-  })
-
-  require("nvim_comment").setup()
   require("lualine").setup()
   require("auto-save").setup({})
   require("nvim-autopairs").setup({})
@@ -159,23 +150,6 @@ local ok, _ = pcall(function()
       color = "#7ebae4",
       name = "LirFolderNode",
     },
-  })
-
-  local null_ls = require("null-ls")
-
-  null_ls.setup({
-    on_attach = function(client, bufnr)
-      if client.server_capabilities.documentFormattingProvider then
-        vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format()<CR>")
-
-        -- format on save
-        vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format()")
-      end
-
-      if client.server_capabilities.documentRangeFormattingProvider then
-        vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format({range={}})<CR>")
-      end
-    end,
   })
 end)
 
