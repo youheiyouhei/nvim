@@ -32,6 +32,7 @@ stylua lua/                     # Luaファイルのフォーマット
 - `lua/plugins.lua` - vim.packによるプラグイン定義と設定
 - `lua/base.lua` - Neovimの基本設定（オプション）
 - `lua/maps.lua` - キーマッピング設定
+- `lsp/` - LSPサーバーごとの設定ファイル（vim.lsp.config ディレクトリ方式）
 
 ### 設定の読み込み順序
 1. プラグイン定義の読み込み
@@ -43,7 +44,7 @@ stylua lua/                     # Luaファイルのフォーマット
 - **プラグインマネージャー**: vim.pack（ビルトイン）
 - **ファイル検索**: fzf-lua
 - **LSP**: ビルトイン (vim.lsp.config) + Mason
-- **補完**: ビルトイン (vim.lsp.completion)
+- **補完**: ビルトイン (autocomplete オプション)
 - **AI支援**: copilot.vim, claudecode.nvim
 - **ファイラー**: lir.nvim
 

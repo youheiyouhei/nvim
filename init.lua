@@ -10,13 +10,7 @@ vim.keymap.set("n", "<leader>r", function()
   require("fzf-lua").grep_project()
 end)
 
--- LSP設定（vim.lsp.config API）
-vim.lsp.config.ts_ls = {
-  cmd = { "typescript-language-server", "--stdio" },
-  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-  root_markers = { "package.json", "tsconfig.json", "jsconfig.json" },
-}
-
+-- LSP有効化（設定は lsp/ ディレクトリ）
 vim.lsp.enable("ts_ls")
 
 -- LspAttach: 補完・フォーマット・キーマッピング
