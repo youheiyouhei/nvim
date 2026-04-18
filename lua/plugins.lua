@@ -24,6 +24,7 @@ vim.pack.add({
   "https://github.com/kosayoda/nvim-lightbulb",
   "https://github.com/folke/snacks.nvim",
   "https://github.com/coder/claudecode.nvim",
+  "https://github.com/MeanderingProgrammer/render-markdown.nvim",
 })
 
 -- Colorscheme
@@ -101,7 +102,7 @@ end)
 
 -- nvim-treesitter
 require("nvim-treesitter").setup({
-  ensure_installed = { "go", "lua", "gomod", "markdown", "sql", "typescript", "vue", "json", "javascript", "kotlin" },
+  ensure_installed = { "go", "lua", "gomod", "markdown", "markdown_inline", "sql", "typescript", "vue", "json", "javascript", "kotlin" },
   sync_install = false,
   auto_install = true,
 })
@@ -115,3 +116,8 @@ require("nvim-lightbulb").setup({
 
 -- claudecode
 require("claudecode").setup({})
+
+-- render-markdown
+require("render-markdown").setup({
+  completions = { lsp = { enabled = true } },
+})
