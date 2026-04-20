@@ -1,0 +1,13 @@
+return {
+  cmd = { "kotlin-lsp", "--stdio" },
+  filetypes = { "kotlin" },
+  root_markers = {
+    "settings.gradle.kts",
+    "settings.gradle",
+    "build.gradle.kts",
+    "build.gradle",
+    "pom.xml",
+    "workspace.json",
+  },
+  single_file_support = false,
+}
