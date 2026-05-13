@@ -13,6 +13,7 @@ end)
 -- LSP有効化（設定は lsp/ ディレクトリ）
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("kotlin_lsp")
+vim.lsp.enable("intelephense")
 
 -- LspAttach: 補完・フォーマット・キーマッピング
 vim.api.nvim_create_autocmd("LspAttach", {

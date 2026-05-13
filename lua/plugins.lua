@@ -102,7 +102,7 @@ end)
 
 -- nvim-treesitter
 require("nvim-treesitter").setup({
-  ensure_installed = { "go", "lua", "gomod", "markdown", "markdown_inline", "sql", "typescript", "vue", "json", "javascript", "kotlin" },
+  ensure_installed = { "go", "lua", "gomod", "markdown", "markdown_inline", "sql", "typescript", "vue", "json", "javascript", "kotlin", "php" },
   sync_install = false,
   auto_install = true,
 })
