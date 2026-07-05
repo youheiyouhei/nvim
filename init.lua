@@ -15,6 +15,31 @@ vim.lsp.enable("ts_ls")
 vim.lsp.enable("kotlin_lsp")
 vim.lsp.enable("intelephense")
 
+-- kotlin-lsp: 外部ライブラリ(jar/jrt)へのdefinitionジャンプを復元
+-- (参考: https://github.com/Kotlin/kotlin-lsp/issues/44)
+vim.api.nvim_create_autocmd("BufReadCmd", {
+  pattern = { "jar:/*", "jrt:/*" },
+  callback = function(args)
+    local clients = vim.lsp.get_clients({ name = "kotlin_lsp" })
+    if #clients == 0 then
+      return
+    end
+
+    local ok, response = pcall(clients[1].request_sync, clients[1], "workspace/executeCommand", {
+      command = "decompile",
+      arguments = { args.match },
+    }, 2000, args.buf)
+    if not ok or not response or not response.result or type(response.result.code) ~= "string" then
+      return
+    end
+
+    vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, vim.split(response.result.code, "\n"))
+    vim.bo[args.buf].filetype = response.result.language
+    vim.bo[args.buf].modifiable = false
+    vim.bo[args.buf].readonly = true
+  end,
+})
+
 -- LspAttach: 補完・フォーマット・キーマッピング
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
